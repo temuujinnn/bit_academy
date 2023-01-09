@@ -16,7 +16,18 @@ import {
 } from "@chakra-ui/react";
 import { Team } from "../Component/team";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
+
+import {
+  Link as Links,
+  Button as Buttons,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller,
+} from "react-scroll";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 const blue = "#3b21a1";
 const green = "#48ddcb";
 
@@ -30,6 +41,19 @@ export default function Home() {
   ];
   const text = "24px";
   const icon = [BsFacebook, BsInstagram];
+  const [scrollPos, setScrollPos] = useState(0);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPos(wrapperRef.current!.scrollTop);
+    };
+    if (wrapperRef.current) {
+      wrapperRef.current.addEventListener("scroll", handleScroll);
+    }
+    return () => {
+      wrapperRef.current!.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollPos]);
 
   return (
     <>
@@ -43,6 +67,7 @@ export default function Home() {
         <Flex flexDir={"column"} bg={blue}>
           <Box h="100px" />
           <HStack
+            id="#home"
             w="100%"
             // bg="RGBA(0, 0, 0, 0.3)"
             bg={blue}
@@ -55,49 +80,50 @@ export default function Home() {
             justifyContent={"center"}
           >
             <HStack w="70%" justifyContent={"space-between"}>
-              <Image
-                opacity={"1"}
-                w={"200px"}
-                src={
-                  "https://cdn.discordapp.com/attachments/1000991557886947358/1061272837555507200/Asset_6.png"
-                }
-              />
+              <Link href={"#home"}>
+                <Image
+                  opacity={"1"}
+                  w={"200px"}
+                  src={
+                    "https://cdn.discordapp.com/attachments/1000991557886947358/1061272837555507200/Asset_6.png"
+                  }
+                />
+              </Link>
               <Button>Өргөдөл илгээх</Button>
             </HStack>
           </HStack>
 
-          <HStack
-            justifyContent={"space-between"}
+          <VStack
+            id="#more"
+            // justifyContent={"space-evenly"}
             color={"white"}
             w="70%"
             mx="auto"
           >
+            <Image
+              w="808px"
+              src="https://cdn.discordapp.com/attachments/1001000360296587344/1061854189770252339/7_copy_1_2.png"
+            />
+
             <Flex flexDir={"column"} justifyContent={"start"} w="40%">
               <Text fontSize={"85px"}>MORE THAN CODING</Text>
+              <Box h="20px" />
               <Text fontSize={text} textAlign={"start"}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
                 tempore quas iure libero facere beatae temporibus suscipit
                 quisquam possimus dolorum quis ullam animi quo iste repellat
                 nesciunt doloremque fugiat! Culpa!
               </Text>
-
+              <Box h="50px" />
               <Button w="30%" borderRadius={"none"} bg={green} color={"black"}>
                 Click me
               </Button>
             </Flex>
-
-            <Image
-              w="508px"
-              src="https://cdn.discordapp.com/attachments/1000991557886947358/1061276422833967164/7_copy_1_1.png"
-            />
-          </HStack>
-          <Box h="100px" />
-          <VStack color={"white"} w="50%" mx="auto">
-            <Image
-              w="357px"
-              h="110"
-              src="https://cdn.discordapp.com/attachments/1000991557886947358/1061278101872578580/pe8_2.png"
-            />
+          </VStack>
+          <Box h="200px" />
+          <VStack ref={wrapperRef} color={"white"} w="50%" mx="auto">
+            <Image src="https://cdn.discordapp.com/attachments/1000991557886947358/1061278101872578580/pe8_2.png" />
+            <Box h="50px" />
             <Text w="80%" fontSize={"24px"} textAlign={"center"}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse,
               tempore quas iure libero facere beatae temporibus suscipit
@@ -105,18 +131,21 @@ export default function Home() {
               nesciunt doloremque fugiat! Culpa!
             </Text>
           </VStack>
-          <VStack>
+          <Box h="150px" />
+          <VStack id="#what" w="100%" justifyContent={"center"}>
             <VStack>
-              <Text fontSize={"6xl"} color="white">
+              <Text fontSize={"85px"} color="white">
                 What we teach?
               </Text>
             </VStack>
+
             <SimpleGrid
               spacing={3}
               columns={[1, 1, 2, 2, 3]}
               w="50%"
               justifyContent={"center"}
               alignContent="center"
+              pb="150px"
             >
               {data.map((el: any, ind: number) => {
                 return (
@@ -153,14 +182,16 @@ export default function Home() {
               })}
             </SimpleGrid>
           </VStack>
-          <VStack w="100%" justifyContent={"center"} mx="auto">
+
+          <VStack id="#team" justifyContent={"center"} mx="auto">
             <Team />
           </VStack>
-          <VStack>
+          <VStack pb="100px">
             <Button p="10px" m="20px">
               Өргөдөл илгээх
             </Button>
           </VStack>
+
           <Divider />
           <HStack my="20px" justifyContent="space-between" px="80px">
             <Image

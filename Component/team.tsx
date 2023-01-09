@@ -5,7 +5,9 @@ import {
   VStack,
   Text,
   Box,
+  Button,
 } from "@chakra-ui/react";
+import { useRef } from "react";
 
 const teamData = [
   {
@@ -56,20 +58,41 @@ const teamData = [
 ];
 
 const TeamCard = ({ user }: any) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
   return (
-    <VStack h="500px" w="100%">
+    <VStack
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      h="500px"
+      w="100%"
+    >
       <Box pos="relative" overflow="hidden">
         <Image
           src={user?.img}
           border="1px solid #F0B91B"
           borderRadius={"5px"}
         />
+
         <Box
           pos="absolute"
           top="0"
           bg="rgba(0,0,0,0.7)"
           h="100%"
           w="100%"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           backdropFilter="blur(2px)"
           color="white"
           fontSize="sm"
@@ -81,7 +104,15 @@ const TeamCard = ({ user }: any) => {
           _hover={{ opacity: 1 }}
           overflowY="scroll"
         >
-          {user?.info}
+          <video
+            ref={videoRef}
+            width="100%"
+            src="https://www.w3schools.com/html/mov_bbb.mp4"
+            autoPlay
+            loop
+            muted
+            controls
+          />
         </Box>
       </Box>
 
