@@ -201,7 +201,7 @@ export default function Home() {
             >
               {data.map((el: any, ind: number) => {
                 return (
-                  <AspectRatio>
+                  <AspectRatio key={ind}>
                     <VStack>
                       <Flex
                         m="20px"
