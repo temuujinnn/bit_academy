@@ -4,7 +4,7 @@ html {
 margin: 0;
 padding: 0;
   background-color: #3b21a1;
-  font-family: Helvetica, sans-serif;
+  /* font-family: Helvetica, sans-serif; */
  
 
 
@@ -12,7 +12,7 @@ padding: 0;
 }
      .container {
      
-       perspective: 800px;
+       perspective: 1000px;
   
        
   
@@ -38,7 +38,7 @@ padding: 0;
      .back {
        height: 100%;
        width: 100%;
-       border-radius: 1rem;
+       /* border-radius: 1rem; */
        box-shadow: 0 0 5px rgba(50, 50, 50, 0.25);
        position: absolute;
        backface-visibility: hidden;
@@ -47,9 +47,11 @@ padding: 0;
      
   
      .back {
-       background-color: #3a3a3a;
+      background-color: white;
+       /* background-color: #3a3a3a; */
        transform: rotateY(180deg);
        display: flex;
+       padding: 1rem;
        flex-direction: column;
        justify-content: center;
        align-items: center;
